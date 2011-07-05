@@ -11,17 +11,19 @@ HTML5の仕様にあるplaceholder属性を、未対応のブラウザでも擬�
     <head>
     <script src="./js/jquery.ah-placeholder.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-    $(function()
-    {
+    $(document).ready(function() {
         $('.jq-placeholder').ahPlaceholder({
-              placeholderColor : 'silver'
-         });
+            placeholderColor : 'darkgray',
+            necessaryColor   : 'palevioletred'
+        });
     });
+    $(window).unload(function(){});
     </script>
     </head>
     <body>
     <form action="" method="get">
-        <input type="text" name="string" value="" title="プレースホルダーテキスト" class="jq-placeholder" />
+        <input type="text" name="string1" value="" title="(必須)プレースホルダーテキスト" class="jq-placeholder necessary" />
+        <input type="text" name="string2" value="" title="プレースホルダーテキスト" class="jq-placeholder" />
         <input type="submit" name="submit" value="送信" />
     </form>
     </body>

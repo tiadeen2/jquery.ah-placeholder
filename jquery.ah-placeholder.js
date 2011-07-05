@@ -15,15 +15,16 @@
     {
         // property
         var defaults = {
-                placeholderColor : 'silver'
+                placeholderColor : 'silver',
+                necessaryColor : 'hotpink'
             },
             settings = $.extend({}, defaults, options);
         // method
         var init    = function()
             {
                 $.data(this, 'placeholder-string', this.title);
-                $.data(this, 'placeholder-color', this.style.color);
-
+//                $.data(this, 'placeholder-color', this.style.color);
+                $.data(this, 'placeholder-color', $(this).css("color"));
                 var phString    = $.data(this, 'placeholder-string'),
                     $self       = $(this);
 
@@ -31,7 +32,11 @@
                     this.value = phString;
                 }
                 if ( this.value === phString ) {
-                    this.style.color = settings.placeholderColor;
+//                    this.style.color = settings.placeholderColor;
+                      $self.css("color", $self.hasClass('necessary') ?
+                          settings.necessaryColor  :
+                          settings.placeholderColor
+                      );
                 }
                 $self.focus(onFocus);
                 $self.blur(onBlur);
@@ -41,14 +46,19 @@
             {
                 if ( this.value === $.data(this, 'placeholder-string') ) {
                     this.value = '';
-                    this.style.color = $.data(this, 'placeholder-color');
+//                    this.style.color = $.data(this, 'placeholder-color');
+                      $(this).css("color", $.data(this, 'placeholder-color'));
                 }
             },
             onBlur  = function()
             {
                 if ( this.value === '' ) {
                     this.value = $.data(this, 'placeholder-string');
-                    this.style.color = settings.placeholderColor;
+//                    this.style.color = settings.placeholderColor;
+                      $(this).css("color", $(this).hasClass('necessary') ?
+                          settings.necessaryColor  :
+                          settings.placeholderColor
+                      );
                 }
             },
             onSubmit= function(elm)
